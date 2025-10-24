@@ -1,7 +1,3 @@
-// Código JavaScript que substitui o HTML e CSS originais
-// Este script pode ser executado em uma página HTML vazia (ou em um ambiente que suporte DOM, como Node.js com jsdom)
-
-// Função para aplicar estilos CSS via JavaScript (injetando um <style> tag)
 function aplicarEstilos() {
     const style = document.createElement('style');
     style.textContent = `
