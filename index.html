@@ -1,0 +1,176 @@
+<!DOCTYPE html> <html lang="pt-BR"> <head> <meta charset="UTF-8"> <meta name="viewport" content="width=device-width, initial-scale=1.0"> <title>Glossário Interativo - Desenvolvimento Web</title> <link rel="stylesheet" href="style.css"> </head> <body>
+<h1>Glossário Interativo de Termos de Programação</h1>
+
+<div id="glossario-container">
+    </div>
+
+<script>
+    // Estrutura de Dados do Glossário
+    const termosGlossario = [
+        {
+            secao: "Seção 11",
+            termos: [
+                {
+                    palavra: "HTML",
+                    significado_achado: "A linguagem para deixar o site bonito.",
+                    significado_real: "HyperText Markup Language. É a linguagem de marcação fundamental para estruturar o conteúdo de uma página web (cabeçalhos, parágrafos, imagens, links, etc.).",
+                    sinonimos: ["Marcação", "Estrutura", "Base"]
+                },
+                {
+                    palavra: "Desenvolvendo",
+                    significado_achado: "Ato de fazer um site funcionar.",
+                    significado_real: "O processo de criação, manutenção e aprimoramento de software, sistemas ou aplicações. No contexto web, é a construção do front-end e/ou back-end.",
+                    sinonimos: ["Programando", "Codificando", "Criando"]
+                },
+                {
+                    palavra: "JavaScript",
+                    significado_achado: "Um jeito de escrever código para o navegador.",
+                    significado_real: "Uma linguagem de programação de alto nível usada principalmente para tornar páginas web interativas. É essencial para o comportamento dinâmico (client-side).",
+                    sinonimos: ["JS", "Script", "ECMAScript"]
+                },
+                {
+                    palavra: "Análise",
+                    significado_achado: "Ler o código para ver se está certo.",
+                    significado_real: "O estudo detalhado dos requisitos, escopo ou código de um projeto para entender seu funcionamento, identificar problemas, ou planejar soluções.",
+                    sinonimos: ["Exame", "Avaliação", "Revisão"]
+                },
+                {
+                    palavra: "Demonstra",
+                    significado_achado: "Mostrar um resultado.",
+                    significado_real: "Ato de exibir, provar ou apresentar o funcionamento de um recurso, protótipo ou aplicação para um público ou cliente.",
+                    sinonimos: ["Exibe", "Prova", "Apresenta"]
+                }
+            ]
+        },
+        {
+            secao: "Seção 12",
+            termos: [
+                {
+                    palavra: "Parâmetro",
+                    significado_achado: "Um nome que se dá para uma variável.",
+                    significado_real: "Um valor (variável) que é passado para uma função ou método quando ele é definido, permitindo que a função opere com diferentes dados.",
+                    sinonimos: ["Argumento", "Input", "Variável de entrada"]
+                },
+                {
+                    palavra: "Sistema",
+                    significado_achado: "Um programa de computador.",
+                    significado_real: "Um conjunto organizado de componentes (hardware, software e pessoas) que interagem para cumprir um objetivo específico.",
+                    sinonimos: ["Plataforma", "Aplicação", "Framework"]
+                },
+                {
+                    palavra: "Verifica",
+                    significado_achado: "Checar se o usuário fez algo certo.",
+                    significado_real: "Ato de checar uma condição, estado ou valor para determinar sua validade, correção ou se atende a um requisito específico.",
+                    sinonimos: ["Valida", "Testa", "Confirma"]
+                },
+                {
+                    palavra: "Incrementar",
+                    significado_achado: "Aumentar um número em 1.",
+                    significado_real: "Aumentar o valor de uma variável, geralmente em uma unidade (adicionar 1), comumente usado em loops e contadores.",
+                    sinonimos: ["Aumentar", "Acrescentar", "Adicionar"]
+                },
+                {
+                    palavra: "Alinhamento",
+                    significado_achado: "Deixar o texto ou objeto no centro da tela.",
+                    significado_real: "Em CSS/design, refere-se ao posicionamento e distribuição de elementos (texto, imagens, blocos) em relação a uma borda ou centro.",
+                    sinonimos: ["Posicionamento", "Distribuição", "Ajuste"]
+                }
+            ]
+        },
+        {
+            secao: "Seção 13",
+            termos: [
+                {
+                    palavra: "Implementa",
+                    significado_achado: "Fazer o código funcionar.",
+                    significado_real: "Executar ou colocar em prática um plano, algoritmo ou funcionalidade. É a fase de codificação de uma solução.",
+                    sinonimos: ["Executa", "Constrói", "Aplica"]
+                },
+                {
+                    palavra: "Diretamente",
+                    significado_achado: "Fazer algo sem rodeios no código.",
+                    significado_real: "Ato de interagir com um elemento ou recurso sem passar por intermediários ou abstrações.",
+                    sinonimos: ["Imediatamente", "Prontamente", "Sem desvio"]
+                },
+                {
+                    palavra: "Considerado",
+                    significado_achado: "Algo que o programa usa.",
+                    significado_real: "Ser levado em conta ou tido como relevante dentro de um contexto ou avaliação de um requisito ou regra.",
+                    sinonimos: ["Reconhecido", "Visto", "Avaliado"]
+                },
+                {
+                    palavra: "Função",
+                    significado_achado: "Um bloco de código com um nome.",
+                    significado_real: "Um bloco de código reutilizável projetado para executar uma tarefa específica. Pode aceitar parâmetros e retornar um valor.",
+                    sinonimos: ["Método", "Rotina", "Sub-rotina"]
+                },
+                {
+                    palavra: "Atualizar",
+                    significado_achado: "Mudar o conteúdo da página.",
+                    significado_real: "Modificar, corrigir ou tornar mais recente um software, dado ou estado de uma aplicação para refletir novas informações ou versões.",
+                    sinonimos: ["Renovar", "Modificar", "Refrescar"]
+                }
+            ]
+        }
+    ];
+
+    // Função para gerar o HTML do glossário
+    function gerarGlossarioHTML() {
+        const container = document.getElementById('glossario-container');
+        let htmlContent = '';
+
+        termosGlossario.forEach(secaoData => {
+            htmlContent += `<div class="secao"><h2>${secaoData.secao}</h2>`;
+            
+            secaoData.termos.forEach((termo, index) => {
+                // ID único para cada cartão e definição
+                const idTermo = `${secaoData.secao.replace(/\s/g, '-')}-${index}`;
+                
+                htmlContent += `
+                    <div class="termo-card" onclick="toggleDefinicao('${idTermo}')">
+                        <h3>${termo.palavra}</h3>
+                        <span class="expander">+</span>
+                        <div id="def-${idTermo}" class="definicao">
+                            <p><strong>Meu Significado:</strong> ${termo.significado_achado}</p>
+                            <p><strong>Significado Real:</strong> ${termo.significado_real}</p>
+                            <p><strong>3 Sinônimos:</strong></p>
+                            <ul>
+                                <li>${termo.sinonimos[0]}</li>
+                                <li>${termo.sinonimos[1]}</li>
+                                <li>${termo.sinonimos[2]}</li>
+                            </ul>
+                        </div>
+                    </div>
+                `;
+            });
+
+            htmlContent += '</div>'; // Fecha .secao
+        });
+
+        container.innerHTML = htmlContent;
+    }
+
+    // Função JavaScript para mostrar/esconder a definição
+    function toggleDefinicao(idTermo) {
+        const definicao = document.getElementById(`def-${idTermo}`);
+        const card = definicao.parentElement;
+        const expander = card.querySelector('.expander');
+
+        // Se a definição estiver visível, esconde; senão, mostra
+        if (definicao.style.display === 'block') {
+            definicao.style.display = 'none';
+            expander.textContent = '+';
+            card.style.borderLeftColor = '#0056b3'; // Volta cor original
+            card.style.backgroundColor = '#e9f7ff';
+        } else {
+            definicao.style.display = 'block';
+            expander.textContent = '-';
+            card.style.borderLeftColor = '#28a745'; // Mudar cor para indicar expandido
+            card.style.backgroundColor = '#dff0d8';
+        }
+    }
+
+    // Chama a função para montar o glossário quando a página carregar
+    document.addEventListener('DOMContentLoaded', gerarGlossarioHTML);
+</script>
+</body> </html>
