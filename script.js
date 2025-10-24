@@ -1,7 +1,3 @@
-// Código JavaScript que substitui o HTML e CSS originais
-// Este script pode ser executado em uma página HTML vazia (ou em um ambiente que suporte DOM, como Node.js com jsdom)
-
-// Função para aplicar estilos CSS via JavaScript (injetando um <style> tag)
 function aplicarEstilos() {
     const style = document.createElement('style');
     style.textContent = `
@@ -13,7 +9,7 @@ function aplicarEstilos() {
         }
 
         h1 {
-            color: #0056b3;
+            color: #6b00b3ff;
             text-align: center;
             border-bottom: 2px solid #ccc;
             padding-bottom: 10px;
@@ -29,7 +25,7 @@ function aplicarEstilos() {
         }
 
         h2 {
-            color: #007bff;
+            color: #6f00ffff;
             margin-top: 0;
             padding-bottom: 10px;
             border-bottom: 1px dashed #eee;
@@ -45,8 +41,8 @@ function aplicarEstilos() {
         .termo-card {
             margin: 15px 0;
             padding: 10px;
-            border-left: 5px solid #0056b3;
-            background-color: #e9f7ff;
+            border-left: 5px solid #6b00b3ff;
+            background-color: #fae9ffff;
             cursor: pointer;
             border-radius: 4px;
             transition: background-color 0.3s;
@@ -59,7 +55,7 @@ function aplicarEstilos() {
         .termo-card h3 {
             margin: 0;
             display: inline-block;
-            color: #0056b3;
+            color: #6b00b3ff;
         }
 
         .termo-card .expander {
@@ -72,7 +68,7 @@ function aplicarEstilos() {
             display: none; /* Escondido por padrão */
             margin-top: 10px;
             padding: 10px;
-            border-top: 1px solid #cceeff;
+            border-top: 1px solid #fae9ffff;
             background-color: #f7fcff;
         }
 
@@ -82,7 +78,7 @@ function aplicarEstilos() {
         }
 
         .definicao strong {
-            color: #007bff;
+            color: #6f00ffff;
         }
 
         .definicao ul {
@@ -283,8 +279,8 @@ function toggleDefinicao(idTermo) {
     if (definicao.style.display === 'block') {
         definicao.style.display = 'none';
         expander.textContent = '+';
-        card.style.borderLeftColor = '#0056b3';
-        card.style.backgroundColor = '#e9f7ff';
+        card.style.borderLeftColor = '#6b00b3ff';
+        card.style.backgroundColor = '#fae9ffff';
     } else {
         definicao.style.display = 'block';
         expander.textContent = '-';
