@@ -1,23 +1,81 @@
-// Background script para extensão de navegador (ex: Chrome extension)
+// Código JavaScript para criar um plano de fundo animado (canvas) para o site
+// Adicione este script ao final do <body> no seu HTML (ex: <script src="background.js"></script>)
+// Ele cria um canvas em tela cheia com estrelas animadas caindo, inspirado em temas de programação.
 
-chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-  if (request.action === "getData") {
-    fetch('https://api.exemplo.com/data')
-      .then(response => response.json())
-      .then(data => {
-        sendResponse({ success: true, data: data });
-      })
-      .catch(error => {
-        sendResponse({ success: false, error: error.message });
-      });
-    return true;
-  }
-});
+document.addEventListener('DOMContentLoaded', () => {
+    // Cria o canvas e o adiciona ao body
+    const canvas = document.createElement('canvas');
+    canvas.id = 'background-canvas';
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.zIndex = '-1'; // Atrás do conteúdo
+    canvas.style.pointerEvents = 'none'; // Não interfere com cliques
+    document.body.appendChild(canvas);
 
-setInterval(() => {
-  console.log("Background script executando tarefa periódica...");
-}, 10000);
+    const ctx = canvas.getContext('2d');
+    let stars = [];
+    const numStars = 100; // Número de estrelas
 
-chrome.runtime.onInstalled.addListener(() => {
-  console.log("Extensão instalada. Background script ativo.");
+    // Função para redimensionar o canvas
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Classe para estrelas
+    class Star {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.speed = Math.random() * 0.5 + 0.1;
+            this.opacity = Math.random() * 0.8 + 0.2;
+        }
+
+        update() {
+            this.y += this.speed;
+            if (this.y > canvas.height) {
+                this.y = 0;
+                this.x = Math.random() * canvas.width;
+            }
+        }
+
+        draw() {
+            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    // Inicializa estrelas
+    for (let i = 0; i < numStars; i++) {
+        stars.push(new Star());
+    }
+
+    // Função de animação
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // Fundo gradiente escuro (tema programação)
+        const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, '#0f0f23'); // Escuro topo
+        gradient.addColorStop(1, '#1a1a2e'); // Escuro fundo
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Desenha e atualiza estrelas
+        stars.forEach(star => {
+            star.update();
+            star.draw();
+        });
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
 });
