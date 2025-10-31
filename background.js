@@ -1,6 +1,5 @@
 // Código JavaScript para criar um plano de fundo animado (canvas) para o site
-// Adicione este script ao final do <body> no seu HTML (ex: <script src="background.js"></script>)
-// Ele cria um canvas em tela cheia com estrelas animadas caindo, inspirado em temas de programação.
+// Este arquivo deve ser salvo como 'background.js' e linkado no HTML via <script src="background.js"></script>
 
 document.addEventListener('DOMContentLoaded', () => {
     // Cria o canvas e o adiciona ao body
